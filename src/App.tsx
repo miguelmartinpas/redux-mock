@@ -1,44 +1,22 @@
-import { useState } from 'react'
-import logo from './logo.svg'
-import './App.css'
+import React from 'react';
+import { Container, Divider, Header, Icon, Segment } from 'semantic-ui-react';
+import TaskList from './organisms/TaskList';
+import TodoForm from './organisms/TodoForm';
+import TodoSummary from './organisms/TodoSummary';
 
-function App() {
-  const [count, setCount] = useState(0)
-
+const App = (): React.ReactElement => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>Hello Vite + React!</p>
-        <p>
-          <button type="button" onClick={() => setCount((count) => count + 1)}>
-            count is: {count}
-          </button>
-        </p>
-        <p>
-          Edit <code>App.tsx</code> and save to test HMR updates.
-        </p>
-        <p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-          {' | '}
-          <a
-            className="App-link"
-            href="https://vitejs.dev/guide/features.html"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Vite Docs
-          </a>
-        </p>
-      </header>
-    </div>
+    <Container textAlign='center'>
+      <Segment compact>
+        <Header as='h2' icon textAlign='center'>
+          <Icon name='tasks' circular />
+          <Header.Content>Todo App</Header.Content>
+        </Header>
+        <TodoForm />
+        <TaskList />
+        <TodoSummary />
+      </Segment>
+    </Container>
   )
 }
 
