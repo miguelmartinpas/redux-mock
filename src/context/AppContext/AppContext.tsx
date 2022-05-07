@@ -1,7 +1,7 @@
 import React from 'react';
-import { GlobalContext } from '../../types/AppContext';
+import { GlobalStateProvider } from '../../types/AppContext';
 
-const AppContext = React.createContext({} as GlobalContext);
+const AppContext = React.createContext({} as GlobalStateProvider);
 
 const { Provider: AppContextProvider } = AppContext;
 

@@ -1,10 +1,11 @@
 import React, { useContext } from 'react';
 import { Container } from 'semantic-ui-react';
 import AppContext from '../../context/AppContext';
-import { GlobalContext, Task } from '../../types/AppContext';
+import { GlobalStateProvider, Task } from '../../types/AppContext';
 
 const TodoSummary = (): React.ReactElement => {
-    const { tasks = [] } = useContext<GlobalContext>(AppContext);
+    const { state } = useContext<GlobalStateProvider>(AppContext);
+    const { tasks = [] } = state;
     
     console.log('TodoSummary', tasks);
 
