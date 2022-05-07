@@ -1,28 +1,34 @@
-import React, { useState } from 'react'
-import { Button, List, Image, ItemDescription, Icon } from 'semantic-ui-react';
+import React, { useContext, useState } from 'react'
+import { List, Icon, Container } from 'semantic-ui-react';
+import AppContext from '../../context/AppContext';
+import { GlobalContext, Task } from '../../types/AppContext';
 
-const TaskList = (): React.ReactElement => /* return <div>TaskList</div>*/ {
-    const [items, setItems] = useState([1,2,3]);
+const TaskList = (): React.ReactElement => {
+    const { tasks = [] } = useContext<GlobalContext>(AppContext);
 
-    if (!items.length) {
+    console.log('TasksList', tasks);
+
+    if (!tasks.length) {
         return (    
-            <List divided verticalAlign='middle'>
+            <List divided>
                 <List.Item>Empty!</List.Item>
             </List>
         );
     }
 
     return (
-        <List divided verticalAlign='middle'>
-            {items.map((item, index: number) => { 
-                return (
-                    <List.Item key={item}>
-                        <Icon name="square outline" size="big" />
-                        <List.Content>Lena</List.Content>
-                    </List.Item>
-                )
-            })}
-        </List>
+        <Container textAlign="left">
+            <List divided verticalAlign='middle'>
+                {tasks.map(({ task, done }: Task, index: number) => { 
+                    return (
+                        <List.Item key={task} floated="left">
+                            <Icon name={done? "check square outline" :  "square outline"} size="big" />
+                            <List.Content>{ done ? <del>{task}</del> : task }</List.Content>
+                        </List.Item>
+                    )
+                })}
+            </List>
+        </Container>
     );
 }
 

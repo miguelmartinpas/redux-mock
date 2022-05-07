@@ -11,6 +11,8 @@ const TodoForm = (): React.ReactElement => {
     const [filter, setFilter] = useState<string>('all');
     const [task, setTask] = useState<string>('');
 
+    console.log('TodoForm');
+
     const handleOnSubmit = (): void => {
         console.log('Add new task', task);
     }
