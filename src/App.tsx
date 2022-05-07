@@ -1,8 +1,9 @@
 import React from 'react';
-import { Container, Divider, Header, Icon, Segment } from 'semantic-ui-react';
+import { Container, Segment } from 'semantic-ui-react';
 import WithGlobalContext from './hightOrder/WithGlobalContext';
 import TaskList from './organisms/TaskList';
 import TodoForm from './organisms/TodoForm';
+import TodoHeader from './organisms/TodoHeader';
 import TodoSummary from './organisms/TodoSummary';
 
 const App = (): React.ReactElement => {
@@ -10,10 +11,7 @@ const App = (): React.ReactElement => {
     <WithGlobalContext>
       <Container textAlign='center'>
         <Segment compact>
-          <Header as='h2' icon textAlign='center'>
-            <Icon name='tasks' circular />
-            <Header.Content>Todo App</Header.Content>
-          </Header>
+          <TodoHeader />
           <TodoForm />
           <TaskList />
           <TodoSummary />

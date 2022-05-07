@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import {
     Form,
     FormInputProps,
@@ -6,20 +6,32 @@ import {
     Input,
     Select,
   } from 'semantic-ui-react'
+import AppContext from '../../context/AppContext';
+  import useDispatch from '../../hooks/useDispatch';
+import { GlobalStateProvider } from '../../types/AppContext';
 
 const TodoForm = (): React.ReactElement => {
-    const [filter, setFilter] = useState<string>('all');
+    const { state } = useContext<GlobalStateProvider>(AppContext);
+    const { dispatch } = useDispatch();
+    const { filter } = state;
     const [task, setTask] = useState<string>('');
 
     console.log('TodoForm');
 
     const handleOnSubmit = (): void => {
         console.log('Add new task', task);
+        dispatch({
+            type: 'ADD_TASK',
+            payload: task
+        });
+        setTask('');
     }
 
     const handleFilter = (filter: string): void => {
-        console.log('Apply filter', filter);
-        setFilter(filter)
+        dispatch({
+            type: 'UPDATE_FILTER',
+            payload: filter
+        });
     }
 
     return (
@@ -27,6 +39,7 @@ const TodoForm = (): React.ReactElement => {
             <Form.Group widths={2}>
                 <Form.Field
                     width={12}
+                    value={task}
                     control={Input}
                     label=''
                     placeholder=''

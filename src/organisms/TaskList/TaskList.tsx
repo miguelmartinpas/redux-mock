@@ -5,7 +5,7 @@ import { GlobalStateProvider, Task } from '../../types/AppContext';
 
 const TaskList = (): React.ReactElement => {
     const { state } = useContext<GlobalStateProvider>(AppContext);
-    const { tasks = [] } = state;
+    const { tasks = [], filter } = state;
 
     console.log('TasksList', tasks);
 
@@ -17,13 +17,31 @@ const TaskList = (): React.ReactElement => {
         );
     }
 
+    const taskWithFilters = (currentTasks: Task[]): Task[] =>{
+
+        if (filter === 'done') {
+            currentTasks = currentTasks.filter(({ done }: Task) => done);
+        }
+
+        if (filter === 'pending') {
+            currentTasks = currentTasks.filter(({ done }: Task) => !done);
+        }
+
+        return currentTasks;
+
+    }
+
+    const handleOnClikItem = (task: string) => {
+        console.log('task', task);
+    }
+
     return (
         <Container textAlign="left">
             <List divided verticalAlign='middle'>
-                {tasks.map(({ task, done }: Task, index: number) => { 
+                {taskWithFilters(tasks).map(({ task, done }: Task, index: number) => { 
                     return (
-                        <List.Item key={task} floated="left">
-                            <Icon name={done? "check square outline" :  "square outline"} size="big" />
+                        <List.Item key={`${task}-${index}`} floated="left">
+                            <Icon name={done? "check square outline" :  "square outline"} size="big"  onClick={() => handleOnClikItem(task)}/>
                             <List.Content>{ done ? <del>{task}</del> : task }</List.Content>
                         </List.Item>
                     )
