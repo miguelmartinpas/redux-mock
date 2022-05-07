@@ -1,6 +1,6 @@
 import React, { useReducer } from 'react';
 import { AppContextProvider } from '../../context/AppContext';
-import { GlobalState, Action } from '../../types/AppContext';
+import { GlobalState, Action, Task } from '../../types/AppContext';
 
 const initialState: GlobalState = {
     tasks: [],
@@ -16,6 +16,13 @@ const reducer = (state: GlobalState, action: Action) => {
             return { ...state, tasks: [...state.tasks, { task: payload, done: false } ] }
         case 'UPDATE_FILTER': 
             return { ...state, filter: payload }
+        case 'UPDATE_TASK': 
+            return { ...state, tasks: state.tasks.map((task: Task) => { 
+                if (task.task === payload) {
+                    task.done = true;
+                }
+                return task;
+             }) }
     }
 
     return state;

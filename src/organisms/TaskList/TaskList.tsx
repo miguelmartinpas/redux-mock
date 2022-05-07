@@ -1,9 +1,11 @@
 import React, { useContext, useState } from 'react'
 import { List, Icon, Container } from 'semantic-ui-react';
 import AppContext from '../../context/AppContext';
+import useDispatch from '../../hooks/useDispatch';
 import { GlobalStateProvider, Task } from '../../types/AppContext';
 
 const TaskList = (): React.ReactElement => {
+    const { dispatch } = useDispatch();
     const { state } = useContext<GlobalStateProvider>(AppContext);
     const { tasks = [], filter } = state;
 
@@ -32,7 +34,10 @@ const TaskList = (): React.ReactElement => {
     }
 
     const handleOnClikItem = (task: string) => {
-        console.log('task', task);
+        dispatch({
+            type: 'UPDATE_TASK',
+            payload: task
+        })
     }
 
     return (
